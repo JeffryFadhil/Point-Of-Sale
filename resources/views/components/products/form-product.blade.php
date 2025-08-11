@@ -6,7 +6,7 @@
     <div class="modal fade" id="FormProduct{{ $id ?? '' }}">
         <form action="{{ route('master-data.product.store') }}" method="POST">
             @csrf
-            <input type="hiden" name="id" value="{{ $id ?? '' }}">
+            <input type="hidden" name="id" value="{{ $id ?? '' }}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">

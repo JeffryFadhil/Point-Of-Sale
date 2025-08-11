@@ -4,6 +4,7 @@ use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,12 @@ route::middleware('auth')->group(function () {
     // Define routes that require authentication here
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); // Ensure this route is accessible only to authenticated users
     Route::post('/logout', [loginController::class, 'logout'])->name('logout');
+
+    Route::prefix('users')->as('users.')->controller(userController::class)->group(function () {
+        Route::get('/', 'index')->name('index'); // List users
+        Route::post('/store', 'store')->name('store'); // Store a new user
+        Route::delete('/destroy/{id}', 'destroy')->name('destroy'); // Delete a
+    });
 
     Route::prefix('master-data')->as('master-data.')->group(function () {
 

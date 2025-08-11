@@ -13,33 +13,33 @@
 
                 @endif
                 <div class="d-flex justify-content-end mb-3">
-                    <x-kategori.form-kategori />
+                    <x-users.form-users />
                 </div>
                 <table class="table table-bordered" id="table2">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>no</th>
                             <th>Name</th>
-                            <th>Description</th>
+                            <th>email</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($kategori as $index => $item)
+                        @foreach($users as $index => $user)
                             <tr>
                                 <td>{{ $index +1 }}</td>
-                                <td>{{ $item->nama_kategori }}</td>
-                                <td>{{ $item->deskripsi }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
                                 <td>
                                     <!-- Add action buttons here -->
                                     <div class="d-flex align-items-center gap-2">
-                                        <x-kategori.form-kategori :id="$item->id" />
-                                        <a href="#" class="btn btn-danger" onclick="deleteData({{ $item->id }})">
+                                        <x-users.form-users :id="$user->id" />
+                                        <a href="#" class="btn btn-danger" onclick="deleteData({{ $user->id }})">
                                             <i class="fas fa-trash"></i> Delete
                                         </a>
 
-                                        <form id="delete-form-{{ $item->id }}"
-                                            action="{{ route('users.destroy', $item->id) }}" method="POST"
+                                        <form id="delete-form-{{ $user->id }}"
+                                            action="{{ route('users.destroy', $user->id) }}" method="POST"
                                             style="display: none;">
                                             @csrf
                                             @method('DELETE')
