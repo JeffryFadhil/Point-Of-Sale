@@ -31,7 +31,8 @@ route::middleware('auth')->group(function () {
     Route::prefix('users')->as('users.')->controller(userController::class)->group(function () {
         Route::get('/', 'index')->name('index'); // List users
         Route::post('/store', 'store')->name('store'); // Store a new user
-        Route::delete('/destroy/{id}', 'destroy')->name('destroy'); // Delete a
+        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+        Route::post('/ganti-password', 'gantiPassword')->name('ganti-password'); // Ganti password
     });
 
     Route::prefix('master-data')->as('master-data.')->group(function () {

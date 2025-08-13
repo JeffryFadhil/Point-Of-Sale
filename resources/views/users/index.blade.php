@@ -1,17 +1,10 @@
 @extends('layouts.app')
-@section('content_title', 'Data Kategori')
+@section('content_title', 'Data Users')
 @section('content')
     <div class="card">
         <div class="card-header">
             <div class="card-body">
-                @if ($errors->any())
-                    <div class="alert alert-danger d-flex flex-column">
-                        @foreach ($errors->all() as $error)
-                            <small class="text-white">{{ $error }}</small>
-                        @endforeach
-                    </div>
-
-                @endif
+               <x-alert :errors="$errors" type="danger" />
                 <div class="d-flex justify-content-end mb-3">
                     <x-users.form-users />
                 </div>
@@ -32,7 +25,7 @@
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <!-- Add action buttons here -->
-                                    <div class="d-flex align-items-center gap-2">
+                                    <div class="d-flex align-items-center gap-5">
                                         <x-users.form-users :id="$user->id" />
                                         <a href="#" class="btn btn-danger" onclick="deleteData({{ $user->id }})">
                                             <i class="fas fa-trash"></i> Delete

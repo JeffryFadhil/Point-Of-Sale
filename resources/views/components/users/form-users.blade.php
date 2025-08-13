@@ -1,7 +1,7 @@
 <div>
     <button type="button" class="btn {{ $id ? 'btn-default' : 'btn-primary' }}" data-toggle="modal"
         data-target="#FormUser{{ $id ?? '' }}">
-        {{ $id ? 'Edit User' : 'Tambah User' }}
+        {{ $id ? 'Edit' : 'Tambah Data User' }}
     </button>
     <div class="modal fade" id="FormUser{{ $id ?? '' }}">
         <form action="{{ route('users.store') }}" method="POST">
@@ -10,7 +10,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">{{ $id ? 'Edit User' : 'Tambah User' }}</h4>
+                        <h4 class="modal-title">{{ $id ? 'Edit Data User' : 'Tambah Data User' }}</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
