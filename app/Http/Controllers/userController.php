@@ -45,9 +45,15 @@ class userController extends Controller
 
     public function destroy($id)
     {
+        if (Auth::user()->id == $id) {
+            toast()->error('Tidak dapat menghapus akun sendiri');
+            return redirect()->to('users.index');
+        }
+
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        toast()->success('User deleted successfully');
+        return redirect()->route('users.index');
     }
     public function gantiPassword(Request $request)
     {
@@ -81,7 +87,7 @@ class userController extends Controller
             'password' => bcrypt($request->password),
         ]);
         toast()->success('Password berhasil diubah');
-        return redirect()->route('users.index');
+        return redirect()->route('dashboard');
 
         
     }

@@ -25,7 +25,7 @@
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <!-- Add action buttons here -->
-                                    <div class="d-flex align-items-center gap-5">
+                                    <div class="d-flex align-items-center ">
                                         <x-users.form-users :id="$user->id" />
                                         <a href="#" class="btn btn-danger" onclick="deleteData({{ $user->id }})">
                                             <i class="fas fa-trash"></i> Delete

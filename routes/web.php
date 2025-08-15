@@ -3,6 +3,7 @@
 use App\Http\Controllers\auth\loginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PenerimaanBarangController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,10 @@ route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); // Ensure this route is accessible only to authenticated users
     Route::post('/logout', [loginController::class, 'logout'])->name('logout');
 
+    Route::prefix('get-data')->as('get-data.')->group(function () {
+       Route::get('/product', [ProductController::class, 'getData'])->name('product'); // Get product data
+    });
+
     Route::prefix('users')->as('users.')->controller(userController::class)->group(function () {
         Route::get('/', 'index')->name('index'); // List users
         Route::post('/store', 'store')->name('store'); // Store a new user
@@ -48,5 +53,11 @@ route::middleware('auth')->group(function () {
             Route::post('/store', 'store')->name('.store');
             Route::delete('/destroy/{id}', 'destroy')->name('.destroy');
         });
+    });
+
+    Route::prefix('penerimaan-barang')->as('penerimaan-barang.')->controller(PenerimaanBarangController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::delete('/destroy/{id}', 'destroy')->name('destroy');
     });
 });
