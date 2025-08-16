@@ -31,6 +31,7 @@ route::middleware('auth')->group(function () {
 
     Route::prefix('get-data')->as('get-data.')->group(function () {
        Route::get('/product', [ProductController::class, 'getData'])->name('product'); // Get product data
+       Route::get('cek-stok', [ProductController::class, 'cekStok'])->name('cek-stok'); // Check stock
     });
 
     Route::prefix('users')->as('users.')->controller(userController::class)->group(function () {

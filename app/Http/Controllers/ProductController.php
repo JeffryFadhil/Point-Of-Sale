@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller
 {
@@ -81,5 +82,17 @@ class ProductController extends Controller
         $query = Product::query();
        $product = $query->where('name_product', 'like', '%' . $products . '%')->get();
         return response()->json($product);
+    }
+
+    public function cekStok(Request $request): JsonResponse
+    {
+        $id = $request->query('id');
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response()->json(['error' => 'Produk tidak ditemukan'], 404);
+        }
+
+        return response()->json(['data' => $product->stok]);
     }
 }

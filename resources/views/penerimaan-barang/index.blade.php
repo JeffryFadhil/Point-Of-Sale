@@ -47,6 +47,30 @@
                     }
                 )
 
+ $("#select2").on('change', function () {
+        let id = $(this).val();
+
+        $.ajax({
+            type: "get",
+            url: "{{ route('get-data.cek-stok') }}",
+            data: { id: id },
+            dataType: "json",
+            success: function (response) {
+                if(response.data !== undefined){
+                    $("#current_stok").val(response.data);
+                } else {
+                    $("#current_stok").val('');
+                    alert("Produk tidak ditemukan!");
+                }
+            },
+            error: function (xhr) {
+                console.error(xhr.responseText);
+                alert("Terjadi error server, cek laravel.log");
+            }
+        });
+    
+});
+
             });
         </script>
     @endpush
