@@ -2,10 +2,32 @@
 @section('content_title', 'Penerimaan Barang')
 @section('content')
     <div class="card">
-        <div class="card-header">
+      <form action="{{ route('penerimaan-barang.store') }}" method="POST" id="form-penerimaan-barang">
+        @csrf
+        <div id="data-hidden"></div>
+          <div class="d-flex justify-content-between align-items-center p-4 border-bottom">
             <h3 class="card-title">Penerimaan Barang</h3>
+            <div>
+                <button type="submit" class="btn btn-primary">Simpan Penerimaan Barang</button>
+            </div>
         </div>
         <div class="card-body">
+            <div class="w-50">
+                <div class="form-group">
+                    <label for="">Distributor</label>
+                    <input type="text" name="distributor" id="distributor" class="form-control">
+                    @error('distributor')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="">Nomor Fakture</label>
+                    <input type="text" name="nomor_faktur" id="nomor_faktur" class="form-control">
+                    @error('nomor_faktur')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+            </div>
             <div class=" d-flex">
                 <div class="w-100">
                     <label for="select2">Product</label>
@@ -13,18 +35,19 @@
                 </div>
                 <div>
                     <label for="">Stok Tersedia</label>
-                    <input type="number" name="current_stok" id="current_stok" class="form-control mx-2"
+                    <input type="number"  id="current_stok" class="form-control mx-2"
                         style="width: 100px;" readonly>
                 </div>
                 <div>
                     <label for="qty">Qty</label>
-                    <input type="number" name="qty" id="qty" class="form-control mx-2" style="width: 100px;" min="1">
+                    <input type="number"  id="qty" class="form-control mx-2" style="width: 100px;" min="1">
                 </div>
                 <div style="padding-top: 32px">
-                    <button class="btn btn-primary" id="btn-add">Tambah</button>
+                    <button type="button" class="btn btn-primary" id="btn-add">Tambah</button>
                 </div>
             </div>
         </div>
+      </form>
         <div class="card-body">
             <table class="table table-sm" id="table_product">
                 <thead>
@@ -35,7 +58,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                 </tbody>
             </table>
         </div>
@@ -132,13 +155,13 @@
 
                     if (!exist) {
                         const row = `
-                                <tr>
-                                    <td>${product.name_product}</td>
-                                    <td>${qty}</td>
-                                    <td>
-                                        <button class="btn btn-danger btn-sm btn-delete">Hapus</button>
-                                    </td>
-                                </tr>`
+                                    <tr>
+                                        <td>${product.name_product}</td>
+                                        <td>${qty}</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-sm btn-delete">Hapus</button>
+                                        </td>
+                                    </tr>`
                         $('#table_product tbody').append(row);
                     }
 
@@ -152,6 +175,22 @@
 
                 $('#table_product').on('click', '.btn-delete', function () {
                     $(this).closest('tr').remove();
+                });
+
+                $('#form-penerimaan-barang').on("submit", function () {
+                    $('#data-hidden').html("");
+
+                    $('#table_product tbody tr').each(function (index , row ){
+                        const nameproduct = $(row).find('td:eq(0)').text();
+                        const qty = $(row).find('td:eq(1)').text();
+                        const productId = $(row).data("id");
+
+                        const inputProduct = `<input type="hidden" name="produk[${index}]['name_product']" value="${nameproduct}"/>`;
+                        const inputQty = `<input type="hidden" name="produk[${index}]['qty']" value="${qty}"/>`;
+
+                        $('#data-hidden').append(inputProduct).append(inputQty);
+
+                    });
                 });
             });
         </script>

@@ -58,7 +58,7 @@ route::middleware('auth')->group(function () {
 
     Route::prefix('penerimaan-barang')->as('penerimaan-barang.')->controller(PenerimaanBarangController::class)->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::post('/store', 'store')->name('store');
+        Route::post('/', 'store')->name('store');
         Route::delete('/destroy/{id}', 'destroy')->name('destroy');
     });
 });
