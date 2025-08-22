@@ -42,6 +42,10 @@
                     <label for="qty">Qty</label>
                     <input type="number"  id="qty" class="form-control mx-2" style="width: 100px;" min="1">
                 </div>
+                <div>
+                    <label for="harga_beli">harga_beli</label>
+                    <input type="number"  id="harga_beli" class="form-control mx-2" style="width: 100px;" min="1">
+                </div>
                 <div style="padding-top: 32px">
                     <button type="button" class="btn btn-primary" id="btn-add">Tambah</button>
                 </div>
@@ -54,6 +58,8 @@
                     <tr>
                         <th>Product</th>
                         <th>Qty</th>
+                        <th>harga_beli</th>
+                        <th>Sub Total</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -125,6 +131,8 @@
                     let productId = $('#select2').val();
                     let qty = $('#qty').val();
                     let currentStok = $('#current_stok').val();
+                    let hargaBeli = $('#harga_beli').val();
+                    let SubTotal = parseInt(qty) * parseInt(hargaBeli);
 
                     let product = selectedProduct[productId];
 
@@ -155,9 +163,11 @@
 
                     if (!exist) {
                         const row = `
-                                    <tr>
+                                    <tr data-id="${productId}">
                                         <td>${product.name_product}</td>
                                         <td>${qty}</td>
+                                        <td>${hargaBeli}</td>
+                                        <td>${SubTotal}</td>
                                         <td>
                                             <button class="btn btn-danger btn-sm btn-delete">Hapus</button>
                                         </td>
@@ -168,6 +178,7 @@
 
                     $('#select2').val(null).trigger('change');
                     $('#qty').val('');
+                    $('#harga_beli').val('');
                     $('#current_stok').val('');
 
                 });
@@ -184,11 +195,16 @@
                         const nameproduct = $(row).find('td:eq(0)').text();
                         const qty = $(row).find('td:eq(1)').text();
                         const productId = $(row).data("id");
+                        const hargaBeli = $(row).find('td:eq(2)').text();
+                        const SubTotal = $(row).find('td:eq(3)').text();
 
-                        const inputProduct = `<input type="hidden" name="produk[${index}]['name_product']" value="${nameproduct}"/>`;
-                        const inputQty = `<input type="hidden" name="produk[${index}]['qty']" value="${qty}"/>`;
+                        const inputProduct = `<input type="hidden" name="produk[${index}][name_product]" value="${nameproduct}"/>`;
+                        const inputQty = `<input type="hidden" name="produk[${index}][qty]" value="${qty}"/>`;
+                        const inputProductId = `<input type="hidden" name="produk[${index}][id]" value="${productId}"/>`;
+                        const inputHargaBeli = `<input type="hidden" name="produk[${index}][harga_beli]" value="${$(row).find('td:eq(2)').text()}"/>`;
+                        const inputSubTotal = `<input type="hidden" name="produk[${index}][sub_total]" value="${$(row).find('td:eq(3)').text()}"/>`;    
 
-                        $('#data-hidden').append(inputProduct).append(inputQty);
+                        $('#data-hidden').append(inputProduct).append(inputQty).append(inputProductId).append(inputHargaBeli).append(inputSubTotal);
 
                     });
                 });
