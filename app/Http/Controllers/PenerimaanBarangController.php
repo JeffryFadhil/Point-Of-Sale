@@ -6,6 +6,7 @@ use App\Http\Middleware\Auth;
 use App\Models\PenerimaanBarang;
 use App\Models\itemPenerimaanBarang;
 use App\Models\product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PenerimaanBarangController extends Controller
@@ -52,5 +53,18 @@ class PenerimaanBarangController extends Controller
      
          toast()->success('Data berhasil disimpan!');
         return redirect()->route('penerimaan-barang.index');
+    }
+
+    public function laporan(){
+        $penerimaanBarang = PenerimaanBarang::orderBy('created_at', 'desc')->get()->map(function($item){
+            $item->tanggal_penerimaan = Carbon::parse($item->created_at)->locale('id')->translatedFormat('l,d F Y');
+            return $item;
+        });
+        return view('laporan.penerimaan-barang.laporan', compact('penerimaanBarang'));
+    }
+    public function detailLaporan($nomor_penerimaan){
+        $data = PenerimaanBarang::with('items')->where('nomor_penerimaan', $nomor_penerimaan)->first();
+        $data->tanggal_penerimaan = Carbon::parse($data->created_at)->locale('id')->translatedFormat('l,d F Y');
+        return view('laporan.penerimaan-barang.detail', compact('data'));
     }
 }
