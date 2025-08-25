@@ -58,6 +58,13 @@ class Aside extends Component
                 'is_dropdown' => false,
             ],
             [
+                'label' => 'Pengeluaran Barang',
+                'icon' => 'fas fa-shipping-fast',
+                'route_name' => 'pengeluaran-barang.index',
+                'route_active' => 'pengeluaran-barang.*',
+                'is_dropdown' => false,
+            ],
+            [
                 'label' => 'Laporan',
                 'icon' => 'fas fa-book',
                 'route_name' => null,
@@ -69,7 +76,7 @@ class Aside extends Component
                         'icon' => 'fas fa-file-import',
                         'route_name' => 'laporan.penerimaan-barang.laporan',
                         'route_active' => 'laporan.penerimaan-barang.*',
-                    ],
+                    ]
                 ],
             ],
         ];

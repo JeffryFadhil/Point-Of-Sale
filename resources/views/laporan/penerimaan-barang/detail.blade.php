@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('content_title', 'Laporan Penerimaan Barang')
+@section('content_title', 'Detail Laporan Penerimaan Barang')
 @section('content')
 <div class="card shadow-sm rounded-3">
     <div class="d-flex justify-content-between align-items-start p-4 border-bottom bg-light">

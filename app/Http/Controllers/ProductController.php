@@ -98,5 +98,18 @@ class ProductController extends Controller
     // Kembalikan respons error jika produk tidak ditemukan
     return response()->json(['stok' => 'Produk tidak ditemukan'], 404);
 }
+    public function cekHarga(Request $request): JsonResponse
+    {
+        $id = request()->query('id');
+        $product = Product::find($id);
+    
+        if ($product) {
+            $hargaJual = $product->harga_jual;
+            return response()->json(['harga' => $hargaJual]);
+        }
+    
+        // Kembalikan respons error jika produk tidak ditemukan
+        return response()->json(['harga_jual' => 'Produk tidak ditemukan'], 404);
+    }
 
 }
