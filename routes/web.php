@@ -73,5 +73,9 @@ route::middleware('auth')->group(function () {
               Route::get('/laporan', 'laporan')->name('laporan');
               Route::get('/laporan/{nomor_penerimaan}/detail', 'detailLaporan')->name('detail-laporan');
           });
+          Route::prefix('pengeluaran-barang')->as('pengeluaran-barang.')->controller(pengeluaranBarangController::class)->group(function () {
+              Route::get('/laporan', 'laporan')->name('laporan');
+              Route::get('/laporan/{nomor_pengeluaran}/detail', 'detailLaporan')->name('detail-laporan');
+          });
     });
 });

@@ -2,6 +2,7 @@
 @section('content_title', 'Pengeluaran Barang')
 @section('content')
     <div class="card">
+        <x-alert :errors="$errors"/>
         <form action="{{ route('pengeluaran-barang.store') }}" method="POST" id="form-pengeluaran-barang">
             @csrf
             <div id="data-hidden"></div>
@@ -41,6 +42,7 @@
                     <tr>
                         <th>Product</th>
                         <th>Qty</th>
+                        <th>harga</th>
                         <th>Sub Total</th>
                         <th>Aksi</th>
                     </tr>
@@ -77,7 +79,7 @@
             function hitungTotal() {
                 let total = 0;
                 $('#table_product tbody tr').each(function () {
-                    const subTotal = parseInt($(this).find('td:eq(2)').text());
+                    const subTotal = parseInt($(this).find('td:eq(3)').text());
                     total += subTotal;
                 });
                 $('#total').val(total);
@@ -188,6 +190,7 @@
                                             <tr data-id="${productId}">
                                                 <td>${product.name_product}</td>
                                                 <td>${qty}</td>
+                                                <td>${harga}</td>
                                                 <td>${SubTotal}</td>
                                                 <td>
                                                     <button class="btn btn-danger btn-sm btn-delete">Hapus</button>
@@ -218,14 +221,16 @@
                     const nameproduct = $(row).find('td:eq(0)').text();
                     const qty = $(row).find('td:eq(1)').text();
                     const productId = $(row).data("id");
-                    const SubTotal = $(row).find('td:eq(2)').text();
+                    const harga = $(row).find('td:eq(2)').text();
+                    const SubTotal = $(row).find('td:eq(3)').text();
 
                     const inputProduct = `<input type="hidden" name="produk[${index}][name_product]" value="${nameproduct}"/>`;
                     const inputQty = `<input type="hidden" name="produk[${index}][qty]" value="${qty}"/>`;
                     const inputProductId = `<input type="hidden" name="produk[${index}][id]" value="${productId}"/>`;
-                    const inputSubTotal = `<input type="hidden" name="produk[${index}][sub_total]" value="${$(row).find('td:eq(2)').text()}"/>`;
+                    const inputharga = `<input type="hidden" name="produk[${index}][harga]" value="${$(row).find('td:eq(2)').text()}"/>`;
+                    const inputSubTotal = `<input type="hidden" name="produk[${index}][sub_total]" value="${$(row).find('td:eq(3)').text()}"/>`;
 
-                    $('#data-hidden').append(inputProduct).append(inputQty).append(inputProductId).append(inputSubTotal);
+                    $('#data-hidden').append(inputProduct).append(inputQty).append(inputProductId).append(inputharga).append(inputSubTotal);
 
                 });
             });

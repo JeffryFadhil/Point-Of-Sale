@@ -76,6 +76,12 @@ class Aside extends Component
                         'icon' => 'fas fa-file-import',
                         'route_name' => 'laporan.penerimaan-barang.laporan',
                         'route_active' => 'laporan.penerimaan-barang.*',
+                    ],
+                    [
+                        'label' => 'Laporan Pengeluaran',
+                        'icon' => 'fas fa-file-import',
+                        'route_name' => 'laporan.pengeluaran-barang.laporan',
+                        'route_active' => 'laporan.pengeluaran-barang.*',
                     ]
                 ],
             ],
